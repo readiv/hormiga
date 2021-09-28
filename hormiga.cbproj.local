@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.972,=C:\Users\asus\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.594,=C:\Users\asus\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2021.09.29 00:50:05.570,=C:\Users\asus\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2021.09.29 00:50:06.132,=C:\Users\asus\Documents\Embarcadero\Studio\Projects\File1.cpp</Transaction>
+    <Transaction>2021.09.29 00:59:23.266,C:\_prj\hormiga_cpp\hormiga.cpp=C:\Users\asus\Documents\Embarcadero\Studio\Projects\File1.cpp</Transaction>
+    <Transaction>2021.09.29 00:59:30.364,C:\_prj\hormiga_cpp\hormiga.h=C:\Users\asus\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2021.09.29 00:59:35.628,C:\_prj\hormiga_cpp\hormiga.cbproj=C:\Users\asus\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
+  </Transactions>
+</BorlandProject>
