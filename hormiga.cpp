@@ -1,4 +1,4 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <conio.h>
 #include <cmath>
 
@@ -8,9 +8,9 @@
 
 using namespace std;
 
-int  sum_of_digits(int digits) {  // Возвращает сумму чисел в числе
+int  sum_of_digits(int digits) {  // Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃСѓРјРјСѓ С‡РёСЃРµР» РІ С‡РёСЃР»Рµ
 	int result = 0;
-	digits = abs(digits); //  Отрицательные числа
+	digits = abs(digits); //  РћС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Рµ С‡РёСЃР»Р°
 	while (digits!=0) {
 		result += digits % 10;
 		digits =  digits / 10;
@@ -26,62 +26,72 @@ int border_search(int x,int dx) {
 
 void fill_line(int **potato_field, int x_n, int y_n){
 	int i, j;
+	int flag = 1;
+	while (flag != 0) {
+		flag = 0;
+		for (j = 1; j<y_n - 1; j++)    // РџРѕ РєСЂР°СЏРј Сѓ РЅР°СЃ СЃС‚РµРЅР°
+			for (i = 1; i<x_n - 1; i++)
+				if (potato_field[i][j] == 0) //РєР»РµС‚РєР° РґРѕСЃС‚СѓРїРЅР°
+					if (potato_field[i+1][j]==2 || potato_field[i-1][j]==2 || // Р”Рѕ СЃРѕСЃРµРґРЅРµР№ РјСѓСЂР°РІРµР№ РґРѕР±СЂР°Р»СЃСЏ?
+						potato_field[i][j+1]==2 || potato_field[i][j-1]==2) {
+							potato_field[i][j] = 2 ;
+							flag++; //
+					}
+	}
 
-	for (i = 0; i<x_n; i++)
-		for (j = 0; j<y_n; j++)
-			if (potato_field[i][j] == 1)
-				potato_field[i][j] = 5;
 }
 
 int main () {
-	 // Идем влево в поисках координаты x, в которой сумма цифр будет больше 25
-	 // Так как при любом значении y сумма цифр x и y будет заведомо больше 25,
-	 // то для муравья это значении x будет непреодолимой стеной.
+	 // РРґРµРј РІР»РµРІРѕ РІ РїРѕРёСЃРєР°С… РєРѕРѕСЂРґРёРЅР°С‚С‹ x, РІ РєРѕС‚РѕСЂРѕР№ СЃСѓРјРјР° С†РёС„СЂ Р±СѓРґРµС‚ Р±РѕР»СЊС€Рµ 25
+	 // РўР°Рє РєР°Рє РїСЂРё Р»СЋР±РѕРј Р·РЅР°С‡РµРЅРёРё y СЃСѓРјРјР° С†РёС„СЂ x Рё y Р±СѓРґРµС‚ Р·Р°РІРµРґРѕРјРѕ Р±РѕР»СЊС€Рµ 25,
+	 // С‚Рѕ РґР»СЏ РјСѓСЂР°РІСЊСЏ СЌС‚Рѕ Р·РЅР°С‡РµРЅРёРё x Р±СѓРґРµС‚ РЅРµРїСЂРµРѕРґРѕР»РёРјРѕР№ СЃС‚РµРЅРѕР№.
 	int i, j;
 
 	int x_left =  border_search(init_x, -1);
 	int x_right =  border_search(init_x, 1);
-	int x_n = x_right -  x_left + 1;  // Число элементов по оси x
+	int x_n = x_right -  x_left + 1;  // Р§РёСЃР»Рѕ СЌР»РµРјРµРЅС‚РѕРІ РїРѕ РѕСЃРё x
 
 	int y_down =  border_search(init_y, -1);
 	int y_top =  border_search(init_y, 1);
-	int y_n = y_top -  y_down + 1;  // Число элементов по оси y
+	int y_n = y_top -  y_down + 1;  // Р§РёСЃР»Рѕ СЌР»РµРјРµРЅС‚РѕРІ РїРѕ РѕСЃРё y
+
+		cout << "\n\r x: " << x_left << " " << x_right << " x_n:" << x_n
+		 << "\n\r y: " << y_down   << " " << y_top << " y_n:" << y_n
+		 <<"\n\r";
 
 	int **potato_field;
-// Выделение памяти под массив и начальная инициализация нулями и единицами
+// Р’С‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РїРѕРґ РјР°СЃСЃРёРІ Рё РЅР°С‡Р°Р»СЊРЅР°СЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РЅСѓР»СЏРјРё Рё РµРґРёРЅРёС†Р°РјРё
 	potato_field = (int**)malloc(x_n * sizeof(int*));
 	for (i = 0; i<x_n; i++) {
 		potato_field[i] = (int*)malloc(y_n * sizeof(int));
 		for (j = 0; j<y_n; j++)
-			potato_field[i][j] = (int) ((sum_of_digits(x_left + i) + sum_of_digits(y_down + j)) > 25);
+			potato_field[i][j] = (int) ((sum_of_digits(x_left + i) + sum_of_digits(y_down + j)) > n_max);
 	}
 
-	for (j = 0; j<20; j++)
-	{   cout << j + y_down << "\t";
-		for (i = 0; i<80; i++) {
-			cout << potato_field[i][j];
-		}
-		cout << "\n\r";
-	}
-	cout << "\n\r\n\r\n\r";
+//	for (j = 0; j<20 && j<y_n-1; j++)
+//	{   cout << j + y_down << "\t";
+//		for (i = 0; i<80 && i<x_n-1; i++) {
+//			cout << potato_field[i][j];
+//		}
+//		cout << "\n\r";
+//	}
+//	cout << "\n\r\n\r\n\r";
 
-	fill_line(potato_field, x_n, y_n);
+	potato_field[init_x-x_left][init_y-y_down]=2;
 
-	for (j = 0; j<20; j++)
-	{   cout << j + y_down << "\t";
-		for (i = 0; i<80; i++) {
-			cout << potato_field[i][j];
-		}
-		cout << "\n\r";
-	}
+  	fill_line(potato_field, x_n, y_n);
+	// РЎС‡РёС‚Р°РµРј РґРІРѕР№РєРё. РС… С‡РёСЃР»Рѕ Рё Р±СѓРґРµС‚ РѕС‚РІРµС‚РѕРј РЅР° Р·Р°РґР°С‡Сѓ
+	int n2 = 0;
+	for (j = 1; j<y_n - 1; j++)    // РџРѕ РєСЂР°СЏРј Сѓ РЅР°СЃ СЃС‚РµРЅР°
+		for (i = 1; i<x_n - 1; i++)
+			if (potato_field[i][j] == 2) //Рћ-Рѕ-Рѕ! РњСѓСЂР°РІРµР№ С‚СѓС‚ РїРѕР±С‹РІР°Р».
+				n2++;
+	cout << "РњСѓСЂР°РІРµР№ РјРѕР¶РµС‚ РїРѕСЃРµС‚РёС‚СЊ " << n2 << " РєР»РµС‚РѕРє";
 
-	for (i = 0; i < x_n; i++)  // Освобождение памяти
+	for (i = 0; i < x_n; i++)  // РћСЃРІРѕР±РѕР¶РґРµРЅРёРµ РїР°РјСЏС‚Рё
 	  free(potato_field[i]);
 	free(potato_field);
 
-	cout << "\n\r x: " << x_left << " " << x_right << " x_n:" << x_n
-		 << "\n\r y: " << y_down   << " " << y_top << " y_n:" << y_n
-		 <<"\n\r";
 	_getch();
     return 0;
 }
