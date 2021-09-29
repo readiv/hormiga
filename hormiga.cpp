@@ -24,8 +24,17 @@ int border_search(int x,int dx) {
 	return x;
 }
 
-int main ()
-{    // Идем влево в поисках координаты x, в которой сумма цифр будет больше 25
+void fill_line(int **potato_field, int x_n, int y_n){
+	int i, j;
+
+	for (i = 0; i<x_n; i++)
+		for (j = 0; j<y_n; j++)
+			if (potato_field[i][j] == 1)
+				potato_field[i][j] = 5;
+}
+
+int main () {
+	 // Идем влево в поисках координаты x, в которой сумма цифр будет больше 25
 	 // Так как при любом значении y сумма цифр x и y будет заведомо больше 25,
 	 // то для муравья это значении x будет непреодолимой стеной.
 	int i, j;
@@ -41,19 +50,26 @@ int main ()
 	int **potato_field;
 // Выделение памяти под массив и начальная инициализация нулями и единицами
 	potato_field = (int**)malloc(x_n * sizeof(int*));
-	for (i = 0; i<x_n; i++)
-	{
+	for (i = 0; i<x_n; i++) {
 		potato_field[i] = (int*)malloc(y_n * sizeof(int));
-		std::memset(potato_field[i], 0, y_n * sizeof(int));
-		for (j = 0; j<y_n; j++) {
-			if ((sum_of_digits(x_left + i) + sum_of_digits(y_down + j)) > 25)
-				potato_field[i][j] = 1;
-		}
+		for (j = 0; j<y_n; j++)
+			potato_field[i][j] = (int) ((sum_of_digits(x_left + i) + sum_of_digits(y_down + j)) > 25);
 	}
 
-	for (i = 0; i<120; i++)
-	{   cout << i + x_left << "\t";
-		for (j = 0; j<110; j++) {
+	for (j = 0; j<20; j++)
+	{   cout << j + y_down << "\t";
+		for (i = 0; i<80; i++) {
+			cout << potato_field[i][j];
+		}
+		cout << "\n\r";
+	}
+	cout << "\n\r\n\r\n\r";
+
+	fill_line(potato_field, x_n, y_n);
+
+	for (j = 0; j<20; j++)
+	{   cout << j + y_down << "\t";
+		for (i = 0; i<80; i++) {
 			cout << potato_field[i][j];
 		}
 		cout << "\n\r";
